@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -58,6 +58,19 @@ export default function TabLayout() {
               <MaterialIcons
                 size={28}
                 name='fact-check'
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name='account'
+          options={{
+            title: 'Акаунт',
+            tabBarIcon: ({ color }) => (
+              <MaterialIcons
+                size={28}
+                name='account-circle'
                 color={color}
               />
             ),
