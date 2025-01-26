@@ -10,7 +10,9 @@ export default function BooksLayout() {
         options={({ navigation }) => ({
           headerShown: true,
           headerLeft: () => (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity
+              className='mx-3'
+              onPress={() => navigation.goBack()}>
               <MaterialIcons
                 name='arrow-back'
                 size={28}

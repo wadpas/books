@@ -6,12 +6,13 @@ const bookListItem = ({ book }: { book: any }) => {
   return (
     <Link
       asChild
-      href={`/book/${book.slug}` as RelativePathString}>
+      href={`/books/${book.slug}` as RelativePathString}>
       <Pressable style={styles.item}>
         <View style={styles.itemImageContainer}>
           <Image
             source={book.cover}
             style={styles.itemImage}
+            resizeMode='stretch'
           />
         </View>
         <View style={styles.itemTextContainer}>
@@ -35,12 +36,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 8,
     borderRadius: 5,
-    overflow: 'hidden',
   },
   itemImageContainer: {
     borderRadius: 10,
     width: '100%',
-    height: 300,
+    aspectRatio: 1 / 1.55,
   },
   itemImage: {
     width: '100%',

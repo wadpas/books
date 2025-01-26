@@ -1,4 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { ToastProvider } from 'react-native-toast-notifications'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
@@ -29,30 +30,20 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name='(tabs)'
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='categories'
-          options={{ headerShown: false, title: 'Categories' }}
-        />
-        <Stack.Screen
-          name='books'
-          options={{ headerShown: true, title: 'Books' }}
-        />
-        <Stack.Screen
-          name='cart'
-          options={{ headerShown: true, presentation: 'modal', title: 'Cart' }}
-        />
-        <Stack.Screen
-          name='auth'
-          options={{ headerShown: true, title: 'Authentication' }}
-        />
-        <Stack.Screen name='+not-found' />
-      </Stack>
-      <StatusBar style='auto' />
+      <ToastProvider>
+        <Stack>
+          <Stack.Screen
+            name='(tabs)'
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='books'
+            options={{ headerShown: false, title: 'Books' }}
+          />
+          <Stack.Screen name='+not-found' />
+        </Stack>
+        <StatusBar style='auto' />
+      </ToastProvider>
     </ThemeProvider>
   )
 }

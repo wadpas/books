@@ -7,9 +7,11 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { HapticTab } from '@/components/HapticTab'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
+import { useCartStore } from '@/store/cart-store'
 
 export default function TabLayout() {
   const colorScheme = useColorScheme()
+  const { getItemCount } = useCartStore()
 
   return (
     <SafeAreaView
@@ -51,13 +53,17 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name='orders'
+          name='cart'
           options={{
-            title: 'Замовлення',
+            title: 'Кошик',
+            tabBarBadge: getItemCount() > 0 ? getItemCount() : undefined,
+            tabBarBadgeStyle: {
+              backgroundColor: Colors[colorScheme ?? 'light'].tint,
+            },
             tabBarIcon: ({ color }) => (
               <MaterialIcons
                 size={28}
-                name='fact-check'
+                name='shopping-basket'
                 color={color}
               />
             ),
