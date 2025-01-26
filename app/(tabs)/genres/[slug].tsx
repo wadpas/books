@@ -3,7 +3,7 @@ import React from 'react'
 import { Redirect, Stack, useLocalSearchParams } from 'expo-router'
 import { Genres } from '@/assets/categories'
 import books from '@/assets/books_db.books.json'
-import ProductListItem from '@/components/ProductListItem'
+import ProductListItem from '@/components/BookListItem'
 
 const Genre = () => {
   const { slug } = useLocalSearchParams<{ slug: string }>()

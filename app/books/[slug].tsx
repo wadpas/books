@@ -2,8 +2,9 @@ import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { Redirect, Stack, useLocalSearchParams } from 'expo-router'
 import { useToast } from 'react-native-toast-notifications'
-import books from '@/assets/books_db.books.json'
 import { useCartStore } from '@/store/cart-store'
+
+import books from '@/assets/books_db.books.json'
 
 const Book = () => {
   const { slug } = useLocalSearchParams<{ slug: string }>()
@@ -13,19 +14,19 @@ const Book = () => {
   if (!book) return <Redirect href={'/+not-found'} />
 
   const { items, addItem, incrementItem, decrementItem } = useCartStore()
-  const cartItem = items.find((item) => item.book._id === book._id)
+  const cartItem = items.find((item) => item.book._id.$oid === book._id.$oid)
   const initialQuantity = cartItem ? cartItem.quantity : 1
   const [quantity, setQuantity] = useState(initialQuantity)
 
   const increaseQuantity = () => {
     if (quantity < book.maxQuantity) {
       setQuantity((prev) => prev + 1)
-      incrementItem(book._id)
+      incrementItem(book._id.$oid)
     } else {
       toast.show(`Наявна кількість примірників - ${book.maxQuantity} шт.`, {
         type: 'warning',
         placement: 'top',
-        duration: 1500,
+        duration: 750,
       })
     }
   }
@@ -33,7 +34,7 @@ const Book = () => {
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity((prev) => prev - 1)
-      decrementItem(book._id)
+      decrementItem(book._id.$oid)
     }
   }
 
@@ -42,10 +43,10 @@ const Book = () => {
       book: book,
       quantity,
     })
-    toast.show('Added to cart', {
+    toast.show('Додано до кошику', {
       type: 'success',
       placement: 'top',
-      duration: 1500,
+      duration: 750,
     })
   }
 

@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-import { HapticTab } from '@/components/HapticTab'
 import { Colors } from '@/constants/Colors'
 import { useColorScheme } from '@/hooks/useColorScheme'
 import { useCartStore } from '@/store/cart-store'
@@ -21,7 +20,6 @@ export default function TabLayout() {
         screenOptions={{
           tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
           headerShown: false,
-          tabBarButton: HapticTab,
           tabBarStyle: {
             height: 52,
           },

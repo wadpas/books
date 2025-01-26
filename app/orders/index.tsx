@@ -1,20 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Stack } from 'expo-router'
 
-const account = () => {
+import { ORDERS } from '@/assets/orders'
+import OrderItem from '@/components/OrderItem'
+
+const Orders = () => {
   return (
-    <View>
-      <Link
-        href={'/orders'}
-        style={styles.orderContainer}>
-        Orders
-      </Link>
+    <View style={styles.container}>
+      <Stack.Screen options={{ title: 'Orders' }} />
+      <FlatList
+        data={ORDERS}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={OrderItem}
+      />
     </View>
   )
 }
 
-export default account
+export default Orders
 
 const styles: { [key: string]: any } = StyleSheet.create({
   container: {

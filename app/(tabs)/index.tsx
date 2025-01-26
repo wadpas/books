@@ -2,7 +2,7 @@ import { FlatList, StyleSheet, Image, View } from 'react-native'
 import React from 'react'
 
 import BOOKS from '@/assets/books_db.books.json'
-import ProductListItem from '@/components/ProductListItem'
+import ProductListItem from '@/components/BookListItem'
 
 const Home = () => {
   return (

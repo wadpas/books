@@ -40,6 +40,10 @@ export default function RootLayout() {
             name='books'
             options={{ headerShown: false, title: 'Books' }}
           />
+          <Stack.Screen
+            name='orders'
+            options={{ headerShown: false, title: 'Orders' }}
+          />
           <Stack.Screen name='+not-found' />
         </Stack>
         <StatusBar style='auto' />

@@ -1,44 +1,51 @@
-import { Alert, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useCartStore } from '@/store/cart-store'
-import CartItem from '@/components/CartItem'
+import { Book } from '@/assets/types/book'
 
-const cart = () => {
-  const { items, removeItem, incrementItem, decrementItem, getTotalPrice, resetCart } = useCartStore()
-
-  const handleCheckout = () => {
-    Alert.alert('Checkout', `Total: $${getTotalPrice()}`)
-  }
-
+const CartItem = ({
+  item,
+  onDecrement,
+  onIncrement,
+  onRemove,
+}: {
+  item: { book: Book; quantity: number }
+  onDecrement: Function
+  onIncrement: Function
+  onRemove: Function
+}) => {
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={items}
-        keyExtractor={(item) => item.book._id.$oid.toString()}
-        renderItem={({ item }) => (
-          <CartItem
-            item={item}
-            onRemove={removeItem}
-            onIncrement={incrementItem}
-            onDecrement={decrementItem}
-          />
-        )}
-        contentContainerStyle={styles.cartList}
+    <View style={styles.cartItem}>
+      <Image
+        source={{ uri: item.book.cover }}
+        style={styles.itemImage}
       />
-
-      <View style={styles.footer}>
-        <Text style={styles.totalText}>Total: ${getTotalPrice()}</Text>
-        <TouchableOpacity
-          onPress={handleCheckout}
-          style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>Checkout</Text>
-        </TouchableOpacity>
+      <View style={styles.itemDetails}>
+        <Text style={styles.itemTitle}>{item.book.title}</Text>
+        <Text style={styles.itemPrice}>${item.book.price.toFixed(2)}</Text>
+        <View style={styles.quantityContainer}>
+          <TouchableOpacity
+            onPress={() => onDecrement(item.book._id.$oid)}
+            style={styles.quantityButton}>
+            <Text style={styles.quantityButtonText}>-</Text>
+          </TouchableOpacity>
+          <Text style={styles.itemQuantity}>{item.quantity}</Text>
+          <TouchableOpacity
+            onPress={() => onIncrement(item.book._id.$oid)}
+            style={styles.quantityButton}>
+            <Text style={styles.quantityButtonText}>+</Text>
+          </TouchableOpacity>
+        </View>
       </View>
+      <TouchableOpacity
+        onPress={() => onRemove(item.book._id.$oid)}
+        style={styles.removeButton}>
+        <Text style={styles.removeButtonText}>Remove</Text>
+      </TouchableOpacity>
     </View>
   )
 }
 
-export default cart
+export default CartItem
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +66,7 @@ const styles = StyleSheet.create({
   },
   itemImage: {
     width: 80,
-    height: 80,
+    aspectRatio: 1 / 1.55,
     borderRadius: 8,
   },
   itemDetails: {
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   checkoutButton: {
-    backgroundColor: '#F43F5E',
+    backgroundColor: '#28a745',
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 8,
@@ -128,5 +135,6 @@ const styles = StyleSheet.create({
   quantityButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginBottom: 3,
   },
 })

@@ -1,20 +1,30 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Link } from 'expo-router'
+import { Link, RelativePathString } from 'expo-router'
+import { format } from 'date-fns'
 
-const account = () => {
+const OrderItem = ({ item }: { item: any }) => {
   return (
-    <View>
-      <Link
-        href={'/orders'}
-        style={styles.orderContainer}>
-        Orders
-      </Link>
-    </View>
+    <Link
+      href={`/orders/${item.slug}` as RelativePathString}
+      asChild>
+      <Pressable style={styles.orderContainer}>
+        <View style={styles.orderContent}>
+          <View style={styles.orderDetailsContainer}>
+            <Text style={styles.orderItem}>{item.slug}</Text>
+            <Text style={styles.orderDetails}>{item.description}</Text>
+            <Text style={styles.orderDate}>{format(new Date(item.date), 'MMM dd, yyyy')}</Text>
+          </View>
+          <View style={[styles.statusBadge, styles[`statusBadge_${item.status}`]]}>
+            <Text style={styles.statusText}>{item.status.toUpperCase()}</Text>
+          </View>
+        </View>
+      </Pressable>
+    </Link>
   )
 }
 
-export default account
+export default OrderItem
 
 const styles: { [key: string]: any } = StyleSheet.create({
   container: {

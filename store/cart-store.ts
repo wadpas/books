@@ -1,17 +1,5 @@
+import { Book } from '@/assets/types/book'
 import { create } from 'zustand'
-
-type Book = {
-  _id: Object
-  title: string
-  slug: string
-  author: string
-  description: string
-  genre: string[]
-  year: number
-  cover: string
-  price: number
-  maxQuantity: number
-}
 
 type CartItem = {
   book: Book
@@ -21,9 +9,9 @@ type CartItem = {
 type CartState = {
   items: CartItem[]
   addItem: (item: CartItem) => void
-  removeItem: (id: object) => void
-  incrementItem: (id: object) => void
-  decrementItem: (id: object) => void
+  removeItem: (id: string) => void
+  incrementItem: (id: string) => void
+  decrementItem: (id: string) => void
   getTotalPrice: () => string
   getItemCount: () => number
   resetCart: () => void
@@ -52,26 +40,26 @@ export const useCartStore = create<CartState>((set, get) => ({
     }
   },
 
-  removeItem: (id: object) =>
+  removeItem: (id: string) =>
     set((state) => ({
-      items: state.items.filter((item) => item.book._id !== id),
+      items: state.items.filter((item) => item.book._id.$oid !== id),
     })),
 
-  incrementItem: (id: object) =>
+  incrementItem: (id: string) =>
     set((state) => {
       return {
         items: state.items.map((item) =>
-          item.book._id === id && item.quantity < item.book.maxQuantity
+          item.book._id.$oid === id && item.quantity < item.book.maxQuantity
             ? { ...item, quantity: item.quantity + 1 }
             : item
         ),
       }
     }),
 
-  decrementItem: (id: any) =>
+  decrementItem: (id: string) =>
     set((state) => ({
       items: state.items.map((item) =>
-        item.book._id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+        item.book._id.$oid && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
       ),
     })),
 
