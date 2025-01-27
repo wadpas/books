@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 const OrderItem = ({ item }: { item: any }) => {
   return (
     <Link
-      href={`/orders/${item.slug}` as RelativePathString}
+      href={`/account/orders/${item.slug}` as RelativePathString}
       asChild>
       <Pressable style={styles.orderContainer}>
         <View style={styles.orderContent}>

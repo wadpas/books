@@ -6,7 +6,7 @@ const account = () => {
   return (
     <View>
       <Link
-        href={'/orders'}
+        href={'/account/orders'}
         style={styles.orderContainer}>
         Orders
       </Link>
