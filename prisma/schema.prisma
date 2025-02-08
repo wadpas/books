@@ -20,6 +20,7 @@ model Book {
   filePath             String
   averageRating        Decimal
   numOfComments        Int
+  price                Decimal
   isAvailable          Boolean                @default(true)
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @updatedAt
