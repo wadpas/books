@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ComponentProps } from 'react'
 import Image from 'next/image'
+import logo from '../public/logo.svg'
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
       <div className='container flex mx-auto'>
         <Image
           className='items-center mx-5'
-          src='./logo.svg'
+          src={logo}
           width={40}
           height={40}
           alt='logo'

@@ -16,15 +16,15 @@ model Book {
   author               String
   description          String
   year                 Int
-  coverPath            String
   filePath             String
-  averageRating        Decimal
-  numOfComments        Int
-  price                Decimal
+  coverPath            String
+  averageRating        Int                    @default(0)
+  numOfComments        Int                    @default(0)
+  price                Int                    @default(199)
   isAvailable          Boolean                @default(true)
   createdAt            DateTime               @default(now())
   updatedAt            DateTime               @updatedAt
-  order                Order[]
+  orders               Order[]
   genre                Genre[]
   comment              Comment[]
   downloadVerification DownloadVerification[]
@@ -44,7 +44,7 @@ model Order {
   userId      String
   bookId      String
   quantity    Int
-  totalPrice  Decimal
+  totalPrice  Int
   isCompleted Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
