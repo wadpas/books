@@ -11,13 +11,15 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
   return (
     <nav className='justify-center bg-primary text-primary-foreground'>
       <div className='container flex mx-auto'>
-        <Image
-          className='items-center mx-5'
-          src={logo}
-          width={40}
-          height={40}
-          alt='logo'
-        />
+        <Link href='/'>
+          <Image
+            className='items-center mx-5'
+            src={logo}
+            width={40}
+            height={40}
+            alt='logo'
+          />
+        </Link>
         {children}
       </div>
     </nav>
