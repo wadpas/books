@@ -1,5 +1,5 @@
 const CURRENCY_FORMATTER = new Intl.NumberFormat('uk-UA', {
-  currency: 'UAH',
+  currency: 'USD',
   style: 'currency',
   minimumFractionDigits: 2,
 })

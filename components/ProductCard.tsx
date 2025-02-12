@@ -34,7 +34,7 @@ export function BookCard({ id, title, price, description, coverPath }: BookCardP
           asChild
           size='lg'
           className='w-full'>
-          <Link href={`/products/${id}/purchase`}>Purchase</Link>
+          <Link href={`/books/${id}/purchase`}>Purchase</Link>
         </Button>
       </CardFooter>
     </Card>
