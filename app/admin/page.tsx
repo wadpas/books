@@ -41,12 +41,12 @@ export default async function AdminDashboard() {
       <DashboardCard
         title='Замовлення'
         description={`${formatNumber(salesData.totalOrders)} замовлень`}
-        content={`Сума: ${formatCurrency(salesData.totalAmount)}`}
+        content={`Сума: ${formatCurrency(salesData.totalAmount / 100)}`}
       />
       <DashboardCard
         title='Користувачі'
         description={`${formatNumber(usersData.usersCount)} активних`}
-        content={`Медіана: ${formatCurrency(usersData.orderPerUser)}`}
+        content={`Медіана: ${formatCurrency(usersData.orderPerUser / 100)}`}
       />
       <DashboardCard
         title='Книги'

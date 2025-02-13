@@ -60,7 +60,7 @@ function BookGridSection({ bookFetcher, title }: BookGridSectionProps) {
           variant='outline'
           asChild>
           <Link
-            href='/products'
+            href='/books'
             className='space-x-2'>
             <span>View All</span>
             <ArrowRight className='size-4' />

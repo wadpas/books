@@ -13,7 +13,7 @@ export default function AdminLayout({
         <NavLink href='/admin'>Головна</NavLink>
         <NavLink href='/admin/books'>Книги</NavLink>
         <NavLink href='/admin/users'>Користувачі</NavLink>
-        <NavLink href='/admin/downloads'>Замовлення</NavLink>
+        <NavLink href='/admin/orders'>Замовлення</NavLink>
       </Navbar>
       <div className='container flex-1 p-6 mx-auto bg-zinc-50'>{children}</div>
     </div>
