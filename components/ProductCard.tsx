@@ -24,6 +24,7 @@ export function BookCard({ id, title, price, description, coverPath }: BookCardP
       </div>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
+        <CardTitle>{id}</CardTitle>
         <CardDescription>{formatCurrency(price)}</CardDescription>
       </CardHeader>
       <CardContent className='flex-grow'>

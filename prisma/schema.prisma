@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -28,6 +28,7 @@ model Book {
   genre                Genre[]
   comment              Comment[]
   downloadVerification DownloadVerification[]
+  discounts            Discount[]
 }
 
 model User {
@@ -40,16 +41,18 @@ model User {
 }
 
 model Order {
-  id          String   @id @default(uuid())
-  userId      String
-  bookId      String
-  quantity    Int
-  totalPrice  Int
-  isCompleted Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  book        Book     @relation(fields: [bookId], references: [id], onDelete: Restrict)
+  id             String    @id @default(uuid())
+  userId         String
+  bookId         String
+  quantity       Int
+  totalPrice     Int
+  isCompleted    Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  discountCodeId String?
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book           Book      @relation(fields: [bookId], references: [id], onDelete: Restrict)
+  discount       Discount? @relation(fields: [discountCodeId], references: [id], onDelete: Restrict)
 }
 
 model Genre {
@@ -76,4 +79,24 @@ model DownloadVerification {
   createdAt DateTime @default(now())
   bookId    String
   book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+}
+
+model Discount {
+  id             String       @id @default(uuid())
+  code           String       @unique
+  discountAmount Int
+  discountType   DiscountType
+  uses           Int          @default(0)
+  isActive       Boolean      @default(true)
+  allBooks       Boolean      @default(false)
+  limit          Int?
+  expiresAt      DateTime
+  createdAt      DateTime     @default(now())
+  books          Book[]
+  orders         Order[]
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
 }

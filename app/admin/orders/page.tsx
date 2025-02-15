@@ -3,7 +3,7 @@ import { db } from '@/db/db'
 import { formatCurrency } from '@/lib/formatters'
 import { PageHeader } from '../_components/PageHeader'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { MoreVertical } from 'lucide-react'
+import { Minus, MoreVertical } from 'lucide-react'
 import { DeleteDropDownItem } from './_components/OrderActions'
 
 function getOrders() {
@@ -13,6 +13,7 @@ function getOrders() {
       totalPrice: true,
       book: { select: { title: true } },
       user: { select: { email: true } },
+      discount: { select: { code: true } },
     },
     orderBy: { createdAt: 'desc' },
   })
@@ -36,9 +37,10 @@ async function OrdersTable() {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>Product</TableHead>
-          <TableHead>Customer</TableHead>
-          <TableHead>Price Paid</TableHead>
+          <TableHead>Книга</TableHead>
+          <TableHead>Покупець</TableHead>
+          <TableHead>Сума</TableHead>
+          <TableHead>Акція</TableHead>
           <TableHead className='w-0'>
             <span className='sr-only'>Actions</span>
           </TableHead>
@@ -50,6 +52,7 @@ async function OrdersTable() {
             <TableCell>{order.book.title}</TableCell>
             <TableCell>{order.user.email}</TableCell>
             <TableCell>{formatCurrency(order.totalPrice / 100)}</TableCell>
+            <TableCell>{order.discount == null ? <Minus /> : order.discount.code}</TableCell>
             <TableCell className='text-center'>
               <DropdownMenu>
                 <DropdownMenuTrigger>
